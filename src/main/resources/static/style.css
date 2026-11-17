@@ -1,0 +1,126 @@
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0px;
+  min-height: 100%;
+}
+/* a blue color as a generic focus style */
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+a {
+  text-decoration: none;
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Times New Roman-Regular", "weight": "400", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Times New Roman-Regular";
+  src: local("Times New Roman-Regular");
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Playfair-Medium", "weight": "500", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Playfair-Medium";
+  src: local("Playfair-Medium");
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Playfair-Bold", "weight": "400", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Playfair-Bold";
+  src: local("Playfair-Bold");
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Playfair-Light", "weight": "300", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Playfair-Light";
+  src: local("Playfair-Light");
+}
+
+
+
+.desktop .text-wrapper {
+  position: absolute;
+  top: calc(50.00% - 374px);
+  left: calc(50.00% - 558px);
+  width: 1116px;
+  font-family: "Times New Roman-Regular", Helvetica;
+  font-weight: 400;
+  color: #48271d;
+  font-size: 375px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.desktop .div {
+  position: absolute;
+  top: 40px;
+  left: calc(50.00% - 615px);
+  width: 246px;
+  font-family: "Playfair-Medium", Helvetica;
+  font-weight: 500;
+  color: #48271d;
+  font-size: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.desktop .text-wrapper-2 {
+  position: absolute;
+  top: 837px;
+  left: 1288px;
+  width: 60px;
+  font-family: "Playfair-Medium", Helvetica;
+  font-weight: 500;
+  color: #48271d;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.desktop .international-day {
+  position: absolute;
+  top: 460px;
+  left: 279px;
+  width: 400px;
+  opacity: 0.8;
+  font-family: "Playfair-Bold", Helvetica;
+  font-weight: 400;
+  color: #fdfce8;
+  font-size: 35px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.desktop .span {
+  font-weight: 700;
+  color: #48271d;
+}
+
+.desktop .text-wrapper-3 {
+  font-family: "Playfair-Light", Helvetica;
+  font-weight: 300;
+  color: #48271d;
+}
+
+.desktop .p {
+  position: absolute;
+  top: 460px;
+  left: 760px;
+  width: 400px;
+  opacity: 0.8;
+  font-family: "Playfair-Bold", Helvetica;
+  font-weight: 400;
+  color: #fdfce8;
+  font-size: 35px;
+  letter-spacing: 0;
+  line-height: normal;
+}

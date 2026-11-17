@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <title>Calendarium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        @media (min-width: 768px) {
+            .desktop-row {
+                flex-direction: row !important;
+                justify-content: space-around !important;
+            }
+        }
+        body {
+            background-color: #f5eae1;
+            font-family: 'Playfair', serif;
+            color: #48271d;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 25px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .main-date {
+            font-size: clamp(60px, 20vw, 320px);
+        }
+        .content-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 900px;
+            text-align: center;
+            margin: 0 auto;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .content-wrap {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 50px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: #f5eae1; overflow-y: auto; height: 100%;">
+
+<!-- Antet / Header -->
+<a href="/" style="text-decoration: none;color: #48271d;font-weight: 600; font-size: 23px; font-family: 'Playfair', Helvetica;cursor: pointer;">
+    Calendarium.
+</a>
+
+<!-- Conținut Central -->
+
+
+    <!-- Data mare -->
+    <h2 th:text="${localDate}" style="
+            font-family:  font-family: 'Playfair', Helvetica;
+            font-weight: 400;
+            color: #48271d;
+            font-size: clamp(80px, 24vw, 400px);
+            text-align: center;
+            letter-spacing: 0;
+            line-height: 1.1;
+            margin: 20px 0;
+            white-space: nowrap;">12 Nov
+
+    </h2>
+
+    <!-- Container pentru blocuri (Evenimente) -->
+
+
+<!-- max-width limitează lățimea, iar margin: 0 auto centrează tot blocul pe pagină -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 1000px; margin: 0 auto;color: #48271d;">
+
+    <div style="opacity: 0.8; line-height: normal; font-family: 'Playfair', Helvetica;
+    text-align: left; padding: 0 0 0 100px; margin-bottom: 10px;"
+         th:each="entry : ${list}">
+
+        <div style="font-weight: 900; font-size: 22px; display: block;
+        margin-top: 4px; margin-bottom: 4px; color: #48271d;"
+             th:text="${entry.key}"></div>
+
+        <ul style="margin: 0; padding: 0; list-style: none;">
+            <li style="font-weight: 100; display: block; color: #48271d;"
+                th:each="element : ${entry.value}">
+                <p style="margin: 2px 0;"><b th:text="${element}">jj</b></p>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- Subsol / Footer -->
+<a href="about.html" style="  text-decoration: none;color: #48271d;font-weight: 500; font-size: 15px; font-family: 'Playfair', Helvetica; align-self: flex-end; cursor: pointer;">
+    About
+</a>
+
+</body>
+</html>
+
+
+ <!--
+
+<!DOCTYPE html>
+<html lang="EN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/global.css}">
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyBH54KhbmSIHtY4wvOhjX2o94HGMMfO9uY",
+          authDomain: "calendar-bd858.firebaseapp.com",
+          projectId: "calendar-bd858",
+          storageBucket: "calendar-bd858.firebasestorage.app",
+          messagingSenderId: "321381733893",
+          appId: "1:321381733893:web:aca1c44b6c7a47a516ee6c",
+          measurementId: "G-8VYS7QMH3Q"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+    <title></title>
+</head>
+<body>
+<div class="desktop"><div class="text-wrapper" >11 Nov</div>
+    <div class="div" >Calendarium.</div>
+    <div class="text-wrapper-2" >About</div>
+    <p class="international-day" ><span class="span" >🌎International Day<br/></span>
+        <span class="text-wrapper-3" >The International day of Panda The International day of Tiger  🕌</span>
+        <span class="span" >National Day</span>
+        <span class="text-wrapper-3" > The Natioanl Day of Indepence of Brunei</span></p>
+    <p class="p" ><span class="span" >🌖International Day<br/></span>
+        <span class="text-wrapper-3" >The International day of Panda The International day of Tiger  📜</span>
+        <span class="span" >National Day</span>
+        <span class="text-wrapper-3" > The Natioanl Day of Indepence of Brunei</span></p></div>
+</body>
+</html>-->
