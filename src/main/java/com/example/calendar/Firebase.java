@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.MonthDay;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -126,11 +127,15 @@ public class Firebase {
                         Object dataEveniment = entry.getValue();
                         if (dataEveniment instanceof Timestamp timestamp) {
                             LocalDate dataCorecta_1 = timestamp.toDate().toInstant()
-                                    .atZone(ZoneId.systemDefault())
+                                    .atZone(ZoneOffset.UTC)
                                     .toLocalDate();
 
                             MonthDay ziLunaEveniment = MonthDay.from(dataCorecta_1);
                             MonthDay ziLunaAzi = MonthDay.now();
+                            System.out.println("Label: " + labelEveniment
+                                    + " | Raw Instant (UTC): " + timestamp.toDate().toInstant()
+                                    + " | UTC MonthDay: " + MonthDay.from(timestamp.toDate().toInstant().atZone(ZoneOffset.UTC).toLocalDate())
+                                    + " | User MonthDay: " + ziLunaAzi);
 
                             if (ziLunaEveniment.equals(ziLunaAzi)) {
                                 evenimenteDinAcestTip.add(labelEveniment);
