@@ -11,9 +11,13 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.MonthDay;
@@ -26,13 +30,23 @@ public class Firebase {
     private FirebaseApp firebaseApp;
 
     public FirebaseApp create() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream
-                        ("C:\\Users\\Home-PC\\Downloads\\calendar" +
-                                "\\calendar\\src\\main\\resources\\calendar-bd858-firebase-adminsdk-fbsvc-e1665100ad.json");
+        String firebaseJson = System.getenv("FIREBASE_CREDENTIALS_JSON");
+        GoogleCredentials credentials;
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+        if (firebaseJson != null && !firebaseJson.isBlank()) {
+            try (InputStream serviceAccount = new ByteArrayInputStream(firebaseJson.getBytes(StandardCharsets.UTF_8))) {
+                credentials = GoogleCredentials.fromStream(serviceAccount);
+            }
+        } else {
+            // Fallback doar pentru rulare locală dacă variabila de mediu nu este setată
+            ClassPathResource resource = new ClassPathResource("calendar-bd858-firebase-adminsdk-fbsvc-e1665100ad.json");
+            try (InputStream serviceAccount = resource.getInputStream()) {
+                credentials = GoogleCredentials.fromStream(serviceAccount);
+            }
+        }
+
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(credentials)
                 .build();
         boolean exists = FirebaseApp.getApps().stream().anyMatch(app -> app.getName().equals("calendar"));
 
