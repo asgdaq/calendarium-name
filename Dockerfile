@@ -1,19 +1,8 @@
-# 1. Etapa de build (compilează aplicația și creează fișierul .jar)
-FROM maven:3.9-eclipse-temurin-17 AS build
-WORKDIR /app
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
 
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
-RUN chmod +x mvnw && ./mvnw dependency:go-offline
-
-COPY src ./src
-RUN ./mvnw clean package -DskipTests
-
-# 2. Etapa de rulare (rulează doar aplicația compilată)
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-
-COPY --from=build /app/target/*.jar app.jar
-
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/WorldApp-0.0.1-SNAPSHOT.jar WorldApp.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java" , "-jar" , "WorldApp.jar"]git
