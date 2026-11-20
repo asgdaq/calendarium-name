@@ -1,8 +1,10 @@
 FROM maven:3.8.5-openjdk-17 AS build
+WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
-COPY --from=build /target/WorldApp-0.0.1-SNAPSHOT.jar WorldApp.jar
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java" , "-jar" , "WorldApp.jar"]git
+ENTRYPOINT ["java", "-jar", "app.jar"]
