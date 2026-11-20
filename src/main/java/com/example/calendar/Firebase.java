@@ -29,7 +29,14 @@ public class Firebase {
 
     private FirebaseApp firebaseApp;
 
-    public FirebaseApp create() throws IOException {
+    public synchronized FirebaseApp create() throws IOException {
+        for (FirebaseApp app : FirebaseApp.getApps()) {
+            if ("calendar".equals(app.getName())) {
+                this.firebaseApp = app;
+                return this.firebaseApp;
+            }
+        }
+
         String firebaseJson = System.getenv("FIREBASE_CREDENTIALS_JSON");
         GoogleCredentials credentials;
 
@@ -38,7 +45,6 @@ public class Firebase {
                 credentials = GoogleCredentials.fromStream(serviceAccount);
             }
         } else {
-            // Fallback doar pentru rulare locală dacă variabila de mediu nu este setată
             ClassPathResource resource = new ClassPathResource("calendar-bd858-firebase-adminsdk-fbsvc-e1665100ad.json");
             try (InputStream serviceAccount = resource.getInputStream()) {
                 credentials = GoogleCredentials.fromStream(serviceAccount);
@@ -48,14 +54,9 @@ public class Firebase {
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(credentials)
                 .build();
-        boolean exists = FirebaseApp.getApps().stream().anyMatch(app -> app.getName().equals("calendar"));
 
-        if (!exists) {
-            firebaseApp = FirebaseApp.initializeApp(options, "calendar");
-        } else {
-            firebaseApp = FirebaseApp.getInstance("calendar");
-        }
-       return firebaseApp;
+        this.firebaseApp = FirebaseApp.initializeApp(options, "calendar");
+        return this.firebaseApp;
     }
 
     public ArrayList<String> citesteTipulEvenimentelor()
